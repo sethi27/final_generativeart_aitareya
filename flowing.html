@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags for character encoding and viewport settings -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Title of the page -->
+    <title>Flowing Patterns - Neon Generative Art</title>
+    
+    <!-- Linking to external stylesheet for general page styles -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Linking to the p5.js library for generative art functionality -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    
+    <!-- Inline styles for the page elements -->
+    <style>
+        /* General body styles to remove default margin and padding, hide overflow, and set background color */
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevents scrolling */
+            background: black; /* Sets the background color to black */
+        }
+        
+        /* Styling for the canvas container */
+        #flowing-canvas {
+            position: fixed; /* Fixes the canvas to the screen */
+            top: 0; /* Aligns it to the top of the page */
+            left: 0; /* Aligns it to the left of the page */
+        }
+    </style>
+</head>
+<body>
+    <!-- Div container for the flowing patterns canvas -->
+    <div id="flowing-canvas"></div>
+
+    <!-- Linking to the JavaScript file that handles the flowing patterns -->
+    <script src="flowing.js"></script>
+</body>
+</html>

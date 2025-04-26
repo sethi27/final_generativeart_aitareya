@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta information for proper character encoding and responsive design -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title of the webpage displayed in the browser tab -->
+    <title>Recursive Tree - Neon Generative Art</title>
+
+    <!-- Linking external stylesheet for custom styles -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Linking to the p5.js library for generative art -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <!-- Linking to gif.js library for GIF recording functionality -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.js"></script>
+
+    <!-- Internal styles for body and canvas elements -->
+    <style>
+        /* General body style to remove margin, padding, and overflow */
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: black; /* Black background for the webpage */
+        }
+
+        /* Fixed positioning for the canvas element to fill the screen */
+        #tree-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        /* Styling for the menu toggle button */
+        .menu-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.7); /* Dark transparent background */
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 24px;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+            user-select: none;
+        }
+
+        /* Hover effect for menu toggle */
+        .menu-toggle:hover {
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        /* Styling for the control panel on the left side */
+        .controls {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 280px;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 80px 20px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            transform: translateX(-100%); /* Initially hidden */
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+            z-index: 999;
+        }
+
+        /* Control panel becomes visible when toggled */
+        .controls.visible {
+            transform: translateX(0);
+        }
+
+        /* Styling for back button in the control panel */
+        .back-button {
+            background: transparent;
+            color: #fff;
+            border: none;
+            padding: 10px 0;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: left;
+            transition: color 0.3s;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Hover effect for back button */
+        .back-button:hover {
+            color: #0fa;
+        }
+
+        /* Styling for each control group in the control panel */
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Styling for control labels */
+        .control-label {
+            color: #fff;
+            font-family: Arial;
+        }
+
+        /* Styling for buttons in the control panel */
+        .control-button {
+            background: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        /* Hover effect for buttons */
+        .control-button:hover {
+            background: #444;
+        }
+
+        /* Styling for color buttons (small circles) */
+        .color-button {
+            width: 30px;
+            height: 30px;
+            border: 2px solid white;
+            border-radius: 50%;
+            cursor: pointer;
+            margin: 0 5px;
+        }
+
+        /* Hover effect for color buttons */
+        .color-button:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Button to toggle the control panel visibility -->
+    <button class="menu-toggle">⋮</button>
+
+    <!-- Control panel for adjusting settings -->
+    <div class="controls">
+        <!-- Back button to return to gallery -->
+        <button class="back-button">← Back to Gallery</button>
+        
+        <!-- Button to save the current tree -->
+        <button class="control-button" id="saveButton">💾 Save Tree</button>
+        
+        <!-- Button to start recording the animation -->
+        <button class="control-button" id="recordButton">🎥 Record Animation</button>
+
+        <!-- Control for setting the recording duration -->
+        <div class="control-group">
+            <label class="control-label">Recording Duration (seconds)</label>
+            <input type="range" id="durationSlider" min="1" max="10" value="5">
+            <span class="control-value" id="durationValue">5</span>
+        </div>
+
+        <!-- Control for setting the tree position -->
+        <div class="control-group">
+            <label class="control-label">Tree Position</label>
+            <input type="range" id="heightSlider" min="0.3" max="0.9" step="0.1" value="0.7">
+            <span class="control-value" id="heightValue">0.7</span>
+        </div>
+
+        <!-- Button to toggle auto color effect -->
+        <button class="control-button" id="autoColorToggle">Auto Color: ON</button>
+
+        <!-- Section for choosing tree colors -->
+        <div class="control-group">
+            <label class="control-label">Color Options</label>
+            <div class="color-buttons" id="colorButtons"></div>
+        </div>
+    </div>
+
+    <!-- Canvas for rendering the recursive tree -->
+    <div id="tree-canvas"></div>
+
+    <!-- Linking to the tree script which handles the tree rendering logic -->
+    <script src="tree.js"></script>
+</body>
+</html>
